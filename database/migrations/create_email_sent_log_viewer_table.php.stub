@@ -8,10 +8,13 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('filament_email_sent_log_viewer_table', function (Blueprint $table) {
+        Schema::create('email_sent_log_viewer_table', function (Blueprint $table) {
             $table->id();
-
-            // add fields
+            $table->string('to');
+            $table->string('cc');
+            $table->string('bcc');
+            $table->string('subject');
+            $table->text('body');
 
             $table->timestamps();
         });

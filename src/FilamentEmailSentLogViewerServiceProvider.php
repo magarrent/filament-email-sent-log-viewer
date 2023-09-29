@@ -2,10 +2,7 @@
 
 namespace Magarrent\FilamentEmailSentLogViewer;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
@@ -30,13 +27,16 @@ class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasCommands($this->getCommands())
+            ->publishesServiceProvider('FilamentEmailSentLogViewerServiceProvider')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
-                    ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('magarrent/filament-email-sent-log-viewer');
+                    ->askToStarRepoOnGitHub('magarrent/filament-email-sent-log-viewer')
+                    ->endWith(function(InstallCommand $command) {
+                        $command->info('All set! 🚀');
+                        $command->info('Your emails will now be logged automatically. You can access via the admin panel now.');
+                    });
             });
 
         $configFileName = $package->shortName();
@@ -47,6 +47,7 @@ class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
+            $package->runsMigrations();
         }
 
         if (file_exists($package->basePath('/../resources/lang'))) {
@@ -60,6 +61,7 @@ class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
+        $this->app->register(FilamentEmailSentLogViewerEventServiceProvider::class);
     }
 
     public function packageBooted(): void
@@ -103,8 +105,8 @@ class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-email-sent-log-viewer', __DIR__ . '/../resources/dist/components/filament-email-sent-log-viewer.js'),
-            Css::make('filament-email-sent-log-viewer-styles', __DIR__ . '/../resources/dist/filament-email-sent-log-viewer.css'),
-            Js::make('filament-email-sent-log-viewer-scripts', __DIR__ . '/../resources/dist/filament-email-sent-log-viewer.js'),
+            /*Css::make('filament-email-sent-log-viewer-styles', __DIR__ . '/../resources/dist/filament-email-sent-log-viewer.css'),
+            Js::make('filament-email-sent-log-viewer-scripts', __DIR__ . '/../resources/dist/filament-email-sent-log-viewer.js'),*/
         ];
     }
 
@@ -148,7 +150,7 @@ class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_filament-email-sent-log-viewer_table',
+            'create_email_sent_log_viewer_table',
         ];
     }
 }

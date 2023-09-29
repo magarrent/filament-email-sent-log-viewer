@@ -17,7 +17,7 @@ You can install the package via composer:
 composer require magarrent/filament-email-sent-log-viewer
 ```
 
-You can publish and run the migrations with:
+You **must** publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --tag="filament-email-sent-log-viewer-migrations"
