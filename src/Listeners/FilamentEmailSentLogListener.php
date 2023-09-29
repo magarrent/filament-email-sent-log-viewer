@@ -4,18 +4,13 @@ namespace Magarrent\FilamentEmailSentLogViewer\Listeners;
 
 use Carbon\Carbon;
 use Illuminate\Mail\Events\MessageSent;
-use Magarrent\FilamentEmailSentLogViewer\Models\EmailSentLog;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Part\DataPart;
 
 class FilamentEmailSentLogListener
 {
-
     /**
      * Handle the actual logging.
-     *
-     * @param MessageSent $event
-     * @return void
      */
     public function handle(MessageSent $event): void
     {
@@ -37,12 +32,8 @@ class FilamentEmailSentLogListener
 
     /**
      * Format address strings for sender, to, cc, bcc.
-     *
-     * @param Email $message
-     * @param string $field
-     * @return null|string
      */
-    function formatAddressField(Email $message, string $field): ?string
+    public function formatAddressField(Email $message, string $field): ?string
     {
         $headers = $message->getHeaders();
 
@@ -51,9 +42,6 @@ class FilamentEmailSentLogListener
 
     /**
      * Collect all attachments and format them as strings.
-     *
-     * @param Email $message
-     * @return string|null
      */
     protected function saveAttachments(Email $message): ?string
     {
@@ -62,8 +50,7 @@ class FilamentEmailSentLogListener
         }
 
         return collect($message->getAttachments())
-            ->map(fn(DataPart $part) => $part->toString())
+            ->map(fn (DataPart $part) => $part->toString())
             ->implode("\n\n");
     }
-
 }

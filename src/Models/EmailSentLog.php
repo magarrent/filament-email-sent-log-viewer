@@ -19,5 +19,4 @@ class EmailSentLog extends Model
         'headers',
         'attachments',
     ];
-
 }
