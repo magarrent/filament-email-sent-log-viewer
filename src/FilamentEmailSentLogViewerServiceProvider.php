@@ -7,11 +7,11 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Magarrent\FilamentEmailSentLogViewer\Commands\FilamentEmailSentLogViewerCommand;
+use Magarrent\FilamentEmailSentLogViewer\Testing\TestsFilamentEmailSentLogViewer;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Magarrent\FilamentEmailSentLogViewer\Commands\FilamentEmailSentLogViewerCommand;
-use Magarrent\FilamentEmailSentLogViewer\Testing\TestsFilamentEmailSentLogViewer;
 
 class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
 {
@@ -33,7 +33,7 @@ class FilamentEmailSentLogViewerServiceProvider extends PackageServiceProvider
                     ->publishMigrations()
                     ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('magarrent/filament-email-sent-log-viewer')
-                    ->endWith(function(InstallCommand $command) {
+                    ->endWith(function (InstallCommand $command) {
                         $command->info('All set! 🚀');
                         $command->info('Your emails will now be logged automatically. You can access via the admin panel now.');
                     });

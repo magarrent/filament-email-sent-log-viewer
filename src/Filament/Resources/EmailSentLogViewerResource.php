@@ -17,12 +17,9 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-use League\HTMLToMarkdown\HtmlConverter;
 use Magarrent\FilamentEmailSentLogViewer\Filament\Resources\Pages\ListEmailSentLogViewers;
 use Magarrent\FilamentEmailSentLogViewer\Filament\Resources\Pages\ViewEmailSentLogViewer;
 use Magarrent\FilamentEmailSentLogViewer\Models\EmailSentLog;
-
 
 class EmailSentLogViewerResource extends Resource
 {
@@ -90,7 +87,7 @@ class EmailSentLogViewerResource extends Resource
                         }
 
                         return $indicators;
-                    })
+                    }),
             ]);
     }
 
@@ -105,8 +102,8 @@ class EmailSentLogViewerResource extends Resource
                         TextEntry::make('to'),
                         TextEntry::make('subject'),
                         TextEntry::make('sent_at')
-                        ->badge()
-                        ->dateTime(),
+                            ->badge()
+                            ->dateTime(),
                         TextEntry::make('cc')
                             ->hidden(fn (EmailSentLog $record): bool => ! $record->cc),
                         TextEntry::make('bcc')
@@ -120,7 +117,7 @@ class EmailSentLogViewerResource extends Resource
                                 TextEntry::make('body')
                                     ->formatStateUsing(function (EmailSentLog $record): string {
                                         return str($record->body)->sanitizeHtml();
-                                    })
+                                    }),
                             ]),
                         Tabs\Tab::make('Raw body')
                             ->schema([
