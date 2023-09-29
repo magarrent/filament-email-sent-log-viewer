@@ -71,6 +71,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Marc - @magarrent](https://github.com/magarrent)
+- Thanks to [Shvets Group](https://github.com/shvetsgroup) for some ideas and code :)
 - [All Contributors](../../contributors)
 
 ## License
