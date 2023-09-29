@@ -4,6 +4,7 @@ namespace Magarrent\FilamentEmailSentLogViewer;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Magarrent\FilamentEmailSentLogViewer\Filament\Resources\EmailSentLogViewerResource;
 
 class FilamentEmailSentLogViewerPlugin implements Plugin
 {
@@ -14,13 +15,16 @@ class FilamentEmailSentLogViewerPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel->resources([
+            EmailSentLogViewerResource::class,
+        ]);
     }
 
     public function boot(Panel $panel): void
     {
-        //
+
     }
+
 
     public static function make(): static
     {
