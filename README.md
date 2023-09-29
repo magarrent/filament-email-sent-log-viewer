@@ -7,7 +7,8 @@
 
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This is a Package for Filament V3 to view all emails sent by your Laravel Application.
+
 
 ## Installation
 
@@ -17,43 +18,29 @@ You can install the package via composer:
 composer require magarrent/filament-email-sent-log-viewer
 ```
 
-You **must** publish and run the migrations with:
+Run the package installer
+    
+```bash
+php artisan filament-email-sent-log-viewer:install
+```
+
+You **must** publish and run the migrations with (The installer does this for you): ⬆️⬆️⬆️
 
 ```bash
-php artisan vendor:publish --tag="filament-email-sent-log-viewer-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+---
 
-```bash
-php artisan vendor:publish --tag="filament-email-sent-log-viewer-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-email-sent-log-viewer-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
 
 ## Usage
 
+Register the plugin class in your `AdminPanelProvider`:
+Just add
+
 ```php
-$filamentEmailSentLogViewer = new Magarrent\FilamentEmailSentLogViewer();
-echo $filamentEmailSentLogViewer->echoPhrase('Hello, Magarrent!');
-```
-
-## Testing
-
-```bash
-composer test
+return $panel
+    ->plugin(new FilamentEmailSentLogViewerPlugin())
 ```
 
 ## Changelog
